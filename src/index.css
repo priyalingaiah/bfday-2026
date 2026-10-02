@@ -1,0 +1,268 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------
+   Theme tokens — the only place colours are defined.
+   Values are "R G B" so Tailwind can apply opacity (bg-dusty/40).
+------------------------------------------------------------------ */
+:root {
+  --c-paper: 255 249 245;        /* #FFF9F5 warm ivory page */
+  --c-paper-deep: 244 231 225;   /* sheet tucked underneath */
+  --c-card: 255 253 249;         /* #FFFDF9 cream card / day cell */
+  --c-polaroid: 255 253 250;     /* polaroid frame */
+  --c-photo-empty: 242 229 228;  /* pale blush-grey empty photo */
+  --c-beige: 242 228 220;        /* very light warm neutral */
+  --c-blush: 247 231 230;        /* #F7E7E6 pale blush (memory days) */
+  --c-blush-soft: 251 242 241;
+  --c-note: 241 213 214;         /* #F1D5D6 soft blush stationery */
+  --c-rose-line: 226 184 190;    /* border on memory days */
+  --c-dusty: 184 95 112;         /* #B85F70 dusty rose accent */
+  --c-dusty-deep: 147 72 90;     /* #93485A deep dusty rose ink */
+  --c-burgundy: 128 58 76;       /* rare, darkest accent */
+  --c-ink: 74 58 56;             /* #4A3A38 warm dark text */
+  --c-ink-soft: 120 100 98;      /* warm grey */
+  --c-ink-faint: 196 177 175;
+  --c-line: 236 220 214;         /* subtle warm borders */
+  --c-shadow: 160 112 108;       /* rosy-beige shadows */
+
+  /* decoration */
+  --c-stem: 168 178 154;         /* #A8B29A muted sage */
+  --c-leaf: 184 194 170;
+  --c-petal-cream: 255 251 246;
+  --c-petal-pink: 232 162 174;
+  --c-pistil: 244 218 176;
+  --c-tape: 246 230 220;
+
+  /* textures */
+  --paper-grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .6  0 0 0 0 .45  0 0 0 0 .45  0 0 0 .05 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  --film-grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");
+  --torn-a: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 24' preserveAspectRatio='none'><path fill='white' d='M0 0H1200V12L1200 7.5L1191 9.4L1178 10.5L1163 12.4L1149 14.9L1139 13.9L1133 13.7L1115 18.5L1097 13.7L1084 15.7L1074 10.5L1064 8.9L1053 10.2L1040 14.1L1035 10L1022 11.3L1005 8L995 13.5L983 9L974 10.8L964 12.3L956 15.7L939 13.2L927 12L908 11.1L900 12.8L890 11L873 8.5L867 11.2L861 16.5L847 8.8L834 8.7L816 15.5L799 14.4L793 9.7L780 9.6L768 13.7L751 9.6L733 8.6L728 15.7L710 7.7L702 16.2L688 9.9L680 18.1L665 13.9L660 8.5L653 13.7L647 15.4L628 16.1L618 9.7L600 11.1L590 15.5L580 13.1L570 14L562 10.3L543 13.2L525 9.3L519 12L503 16L495 11.5L481 12.2L469 14.3L453 7.7L441 9.3L432 9.6L421 8.2L404 15.7L390 21.6L376 14L371 9.5L364 7.6L346 10.7L332 9.7L313 11.3L297 11.1L291 9.6L272 8.9L260 8.6L247 11L233 12.5L214 8.2L205 10.5L198 9.6L182 14.4L165 16.2L151 12.6L140 12L127 14L114 14.1L97 16.4L85 16.1L75 8.2L58 13.9L39 14.6L31 21.3L15 13.2L2 11.5L0 12Z'/></svg>");
+  --torn-b: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 24' preserveAspectRatio='none'><path fill='white' d='M0 0H1200V9L1200 5L1184 10.9L1166 7.2L1150 5.5L1141 15.5L1133 5.6L1116 5.7L1104 9.8L1099 12.6L1087 11.8L1070 7.9L1061 12.9L1048 11.7L1039 8.8L1024 9.4L1010 8.8L994 10.7L982 14.5L975 7.2L959 9.1L942 17.9L923 6.8L915 10.7L897 6.7L889 7.1L876 9.5L865 8.6L860 7.3L855 12.6L847 12L832 11.3L820 9.6L804 12.2L797 6.8L791 9.2L781 15.5L775 11.9L763 13.4L754 12.9L739 8.6L729 11.7L712 10.7L697 6.8L686 8.4L667 10.6L654 8.9L646 12.2L628 8.6L616 8.8L611 7.1L602 13.1L592 8.4L579 5.4L561 6.8L543 9.8L527 8.7L522 7.4L511 11.5L497 11.3L484 11.7L468 7.7L463 10.1L447 5.5L434 17.3L416 11.6L404 7.6L388 8.3L376 13.7L370 6L361 9L347 11.2L329 12.4L313 5.5L302 11.4L290 10.3L285 9.9L270 11.7L265 9.4L256 7L238 8.3L232 8L226 11.1L211 5.9L201 9.8L188 7.3L177 8L163 6.8L151 12.9L136 7.7L122 13.1L110 6.7L100 6.8L93 8L76 8.2L67 12.7L57 7.6L45 12.4L38 8.5L33 10.5L23 12L10 13L5 10.7L0 9Z'/></svg>");
+
+  color-scheme: light;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply min-h-screen bg-paper font-serif text-ink antialiased;
+    font-variant-numeric: lining-nums;
+    /* paper grain + near-white light in the middle + faint cream edges */
+    background-image:
+      var(--paper-grain),
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgb(255 249 244 / 0.95), transparent 70%),
+      radial-gradient(ellipse 120% 90% at 50% 40%, transparent 60%, rgb(var(--c-paper-deep) / 0.45));
+    background-attachment: scroll, scroll, fixed;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--c-dusty));
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: rgb(var(--c-blush));
+  }
+}
+
+@layer components {
+  .paper-texture {
+    background-image: var(--paper-grain);
+  }
+
+  /* ---------- hero: a torn, slightly faded photograph ---------- */
+  .hero-shadow {
+    filter: drop-shadow(0 10px 12px rgb(var(--c-shadow) / 0.2));
+  }
+
+  /* cream photo-paper core that shows along the tear */
+  .torn-paper {
+    background: rgb(var(--c-polaroid));
+    -webkit-mask: linear-gradient(#000, #000) top / 100% calc(100% - 23px) no-repeat, var(--torn-a) bottom / 100% 24px no-repeat;
+    mask: linear-gradient(#000, #000) top / 100% calc(100% - 23px) no-repeat, var(--torn-a) bottom / 100% 24px no-repeat;
+  }
+
+  .torn-photo {
+    -webkit-mask: linear-gradient(#000, #000) top / 100% calc(100% - 23px) no-repeat, var(--torn-b) bottom / 100% 24px no-repeat;
+    mask: linear-gradient(#000, #000) top / 100% calc(100% - 23px) no-repeat, var(--torn-b) bottom / 100% 24px no-repeat;
+  }
+
+  /* soft afternoon light, out of focus — stands in until a hero photo is added */
+  .hero-dream {
+    background:
+      radial-gradient(circle at 17% 26%, rgb(255 255 255 / 0.75) 0 2.5%, transparent 8%),
+      radial-gradient(circle at 66% 22%, rgb(255 250 246 / 0.7) 0 3.5%, transparent 10%),
+      radial-gradient(circle at 86% 62%, rgb(240 200 204 / 0.45) 0 4.5%, transparent 12%),
+      radial-gradient(circle at 44% 80%, rgb(255 246 240 / 0.6) 0 5%, transparent 14%),
+      radial-gradient(circle at 57% 46%, rgb(243 214 216 / 0.5) 0 7%, transparent 20%),
+      radial-gradient(circle at 30% 64%, rgb(250 230 226 / 0.5) 0 4%, transparent 12%),
+      radial-gradient(ellipse at 25% 6%, rgb(255 246 232 / 0.9), transparent 55%),
+      linear-gradient(118deg, #fff8f5, #f8e9e8 42%, #f3dadb 72%, #ebd5d2);
+  }
+
+  /* a gentle lift for every photograph — clean and bright, no sepia */
+  .photo-warm {
+    filter: saturate(0.97) contrast(0.97) brightness(1.04);
+  }
+
+  /* champagne sunlight from the top-left corner */
+  .light-leak {
+    background:
+      radial-gradient(ellipse 55% 70% at 8% 0%, rgb(255 244 228 / 0.45), transparent 70%),
+      radial-gradient(ellipse 40% 60% at 100% 100%, rgb(248 214 216 / 0.25), transparent 70%);
+    mix-blend-mode: screen;
+  }
+
+  .vignette {
+    background: radial-gradient(ellipse 85% 85% at 50% 45%, transparent 60%, rgb(var(--c-dusty) / 0.14));
+  }
+
+  .film-grain {
+    background-image: var(--film-grain);
+    mix-blend-mode: overlay;
+    opacity: 0.2;
+  }
+
+  .hero-wash {
+    background: radial-gradient(ellipse 50% 62% at 50% 50%, rgb(var(--c-card) / 0.82), rgb(var(--c-card) / 0.45) 60%, rgb(var(--c-card) / 0.08) 100%);
+  }
+
+  /* the header photo melts into the blush paper instead of ending in a hard edge */
+  .hero-photo-fade {
+    -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent);
+    mask-image: linear-gradient(to bottom, #000 72%, transparent);
+  }
+  @media (min-width: 1024px) {
+    .hero-photo-fade {
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 16%);
+      mask-image: linear-gradient(to right, transparent, #000 16%);
+    }
+  }
+
+  .text-photo {
+    /* a soft cream glow keeps handwriting legible over any photo */
+    text-shadow: 0 0 14px rgb(255 250 246 / 0.9), 0 0 4px rgb(255 250 246 / 0.7);
+  }
+
+  /* ---------- the calendar card on the desk ---------- */
+  .sheet {
+    @apply rounded-[26px] border border-line/70 bg-card shadow-paper;
+    background-image:
+      var(--paper-grain),
+      linear-gradient(165deg, rgb(255 255 255 / 0.55), transparent 35%),
+      radial-gradient(ellipse at 100% 100%, rgb(var(--c-blush) / 0.18), transparent 50%);
+  }
+
+  /* a second sheet tucked underneath, slightly askew */
+  .sheet-under {
+    @apply rounded-[28px] bg-paper-deep shadow-paper;
+    background-image: var(--paper-grain);
+    transform: rotate(0.8deg) translate(5px, 9px);
+  }
+
+  /* little handwritten note */
+  .note-paper {
+    @apply shadow-note;
+    background-color: rgb(var(--c-note));
+    background-image:
+      var(--paper-grain),
+      repeating-linear-gradient(transparent 0 29px, rgb(var(--c-dusty) / 0.16) 29px 30px),
+      linear-gradient(160deg, rgb(255 255 255 / 0.35), transparent 50%);
+  }
+
+  /* ---------- tape ---------- */
+  .tape-rose {
+    background: repeating-linear-gradient(-45deg, rgb(var(--c-blush) / 0.88) 0 6px, rgb(var(--c-blush-soft) / 0.88) 6px 12px);
+    clip-path: polygon(3% 0, 97% 6%, 100% 48%, 96% 100%, 2% 94%, 0 52%);
+  }
+
+  .tape-sand {
+    background: rgb(var(--c-tape) / 0.8);
+    background-image: linear-gradient(90deg, rgb(255 255 255 / 0.35), transparent 30%, rgb(var(--c-blush) / 0.35) 70%, transparent);
+    box-shadow: inset 0 0 0 1px rgb(var(--c-rose-line) / 0.35);
+    clip-path: polygon(2% 4%, 98% 0, 100% 50%, 97% 96%, 1% 100%, 0 46%);
+  }
+
+  /* ---------- polaroids ---------- */
+  .polaroid {
+    @apply relative bg-polaroid shadow-polaroid;
+    background-image: var(--paper-grain), linear-gradient(170deg, rgb(255 255 255 / 0.75), rgb(var(--c-paper) / 0.45));
+    transform: rotate(var(--rot, 0deg));
+    transition:
+      transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+      box-shadow 0.6s ease;
+  }
+
+  .polaroid-interactive:hover {
+    transform: rotate(calc(var(--rot, 0deg) * 0.4)) translateY(-3px);
+    box-shadow:
+      0 2px 4px rgb(var(--c-shadow) / 0.12),
+      0 22px 38px -12px rgb(var(--c-shadow) / 0.42);
+  }
+
+  /* arrives a little crooked, then settles — like it was just set down */
+  .polaroid-settle {
+    animation: polaroid-settle 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  }
+
+  .photo-inset::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow:
+      inset 0 0 0 1px rgb(var(--c-shadow) / 0.08),
+      inset 0 1px 8px rgb(var(--c-shadow) / 0.14);
+  }
+
+  /* ---------- memory page backdrop: blurred blossoms ---------- */
+  .blossom-backdrop {
+    background:
+      radial-gradient(circle at 12% 16%, rgb(214 146 152 / 0.5) 0 5%, transparent 13%),
+      radial-gradient(circle at 86% 9%, rgb(226 168 170 / 0.45) 0 4%, transparent 12%),
+      radial-gradient(circle at 80% 74%, rgb(236 202 192 / 0.42) 0 7%, transparent 19%),
+      radial-gradient(circle at 18% 82%, rgb(206 138 146 / 0.38) 0 6%, transparent 17%),
+      radial-gradient(circle at 60% 30%, rgb(244 220 208 / 0.28) 0 9%, transparent 22%),
+      radial-gradient(ellipse at 50% 50%, rgb(250 236 234 / 0.7), rgb(226 188 192 / 0.82));
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+
+  .safe-bottom {
+    padding-bottom: max(1.75rem, env(safe-area-inset-bottom));
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes polaroid-settle {
+  from {
+    opacity: 0;
+    transform: rotate(calc(var(--rot, 0deg) + 7deg)) translateY(14px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(var(--rot, 0deg));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
